@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">TempConverterStopwatch</string>
+    <string name="reset">0:00.000</string>
+</resources>

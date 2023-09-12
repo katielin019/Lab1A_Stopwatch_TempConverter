@@ -11,10 +11,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClickStart(view: View) {
-
+        startTime = System.currentTimeMillis()    // avoids creating a Calendar
     }
 
     fun onClickStop(view: View) {
-
     }
 }

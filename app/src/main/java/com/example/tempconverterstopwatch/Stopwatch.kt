@@ -10,7 +10,7 @@ class Stopwatch {
 
     fun start() {
         isRunning = true
-        startTime = startTime?: System.currentMillis()    // only update startTime when null
+        startTime = startTime?: System.currentTimeMillis()    // only update startTime when null
     }
 
     fun stop() {

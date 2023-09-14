@@ -17,4 +17,13 @@ class Stopwatch {
         isRunning = false
         startTime = null
     }
+
+    fun elapsedTimeAsString(): String {
+        val t: Long = System.currentTimeMillis()
+        val clock = t - (startTime?: t)
+        val minute = clock / 60000
+        val seconds = (clock / 1000) % 60
+        val micro = clock % 1000
+        return "$minute:".plus(String.format("%02d", seconds)).plus(".").plus(String.format("%03d", micro))
+    }
 }

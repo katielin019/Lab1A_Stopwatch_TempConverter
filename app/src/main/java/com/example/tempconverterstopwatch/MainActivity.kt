@@ -1,28 +1,41 @@
 package com.example.tempconverterstopwatch
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.View
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
-    private var isRunning: Boolean = false
-    private var startTime: Long? = null
+    private var clockTextView: TextView? = null
+    private val stopwatch: Stopwatch = Stopwatch()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        clockTextView = findViewById(R.id.clockTextView)
+
+        val mainHandler = Handler(Looper.getMainLooper())
+        mainHandler.post(object: Runnable {
+            override fun run() {
+                if (stopwatch.getRunning())
+                    updateClockUI()
+                mainHandler.postDelayed(this, 10)
+            }
+        })
     }
 
     fun onClickStart(view: View) {
-        startTime = System.currentTimeMillis()    // avoids creating a Calendar
+        stopwatch.start()
+        updateClockUI()
     }
 
     fun onClickStop(view: View) {
-        startTime = null
+        stopwatch.stop()
     }
 
-    fun elapsedTime(): Long {
-        val t: Long = System.currentTimeMillis()
-        val clock = t - (startTime?: t)
-        return clock    // will be 0 if startTime is null
+    fun updateClockUI() {
+        clockTextView?.text = stopwatch.elapsedTimeAsString()
     }
 }
